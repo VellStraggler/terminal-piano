@@ -1,6 +1,10 @@
 
 import pygame.midi
 import keyboard
+import os
+
+os.environ['SDL_AUDIODRIVER'] = 'alsa'
+os.environ['SDL_AUDIODEV'] = 'hw:0,0'
 
 ERASE_CODE = "\033[2J"
 RETURN_CODE = "\033[H"

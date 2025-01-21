@@ -1,10 +1,6 @@
 
 import pygame.midi
 import keyboard
-import os
-
-os.environ['SDL_AUDIODRIVER'] = 'pulse'
-os.environ['SDL_AUDIODEV'] = 'hw:0,0'
 
 ERASE_CODE = "\033[2J"
 RETURN_CODE = "\033[H"
@@ -53,7 +49,7 @@ def draw_played_notes(midi_output: pygame.midi.Output, keys_held: set):
 
 def setup_midi_output():
     pygame.midi.init()
-    return pygame.midi.Output(pygame.midi.get_default_output_id())
+    return pygame.midi.Output(max(0,pygame.midi.get_default_output_id()))
 
 def play_note(midi_output, pitch, velocity):
     if velocity > 0:

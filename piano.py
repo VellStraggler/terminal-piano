@@ -1,6 +1,9 @@
+from atexit import register
+import signal
 import keyboard
 from playsound import playsound # version 1.2.2
 from os.path import dirname
+import os
 import concurrent.futures
 import sys
 # to get rid of input the builds up after the program ends
@@ -71,6 +74,10 @@ def main():
 
     sys.stdout.write("\033[3J\033[H\033[2J")
     sys.stdout.flush()
+    register(cleanup)
+
+def cleanup():
+    os.kill(os.getpid(), signal.SIGINT)
 
 if __name__ == "__main__":
     main()

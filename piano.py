@@ -12,7 +12,7 @@ if os.name != 'nt': # Not a windows feature
 
 ERASE_CODE = "\033[2J"
 ERASE_DOWN_CODE = "\033[J"
-TO_START_POINT = "\033[7;0H"
+TO_START_POINT = "\033[8;0H"
 RETURN_CODE = "\033[H"
 DISPLAY = RETURN_CODE + '''Terminal Keys: press 'q' to quit
 _____________________________________

@@ -2,8 +2,12 @@ import keyboard
 from playsound import playsound # version 1.2.2
 from os.path import dirname
 import concurrent.futures
+import sys
+# to get rid of input the builds up after the program ends
 
 ERASE_CODE = "\033[2J"
+ERASE_DOWN_CODE = "\033[J"
+TO_START_POINT = "\033[7;0H"
 RETURN_CODE = "\033[H"
 DISPLAY = RETURN_CODE + '''Terminal Keys: press 'q' to quit
 _____________________________________
@@ -45,7 +49,7 @@ def draw_played_notes(keys_held: set, pool):
             msg += draw_list[1] # "/\\"
             if m in [4,11]:
                 msg += " "
-    print(msg)
+    print(msg + ERASE_DOWN_CODE + TO_START_POINT)
 
 def main():
 
@@ -53,9 +57,10 @@ def main():
     keys_pressed = set()
     pool = concurrent.futures.ThreadPoolExecutor(max_workers=16)
 
+    print(DISPLAY)
+    # print display once, and bring cursor back to row below it
     while run_program:
 
-        print(DISPLAY)
         draw_played_notes(keys_pressed, pool)
 
         # COMMANDS
@@ -63,6 +68,9 @@ def main():
             run_program = False
     
     pool.shutdown(wait=False)
+
+    sys.stdout.write("\033[3J\033[H\033[2J")
+    sys.stdout.flush()
 
 if __name__ == "__main__":
     main()

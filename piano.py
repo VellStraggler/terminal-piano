@@ -13,7 +13,7 @@ _____________________________________
 |██|██|██|██|██|██|██|██|██|██|██|██|
 |██|██|██|██|██|██|██|██|██|██|██|██|'''
 #/\^/\^/\ /\^/\^/\^/\ /\^/\^/\ /\^
-keyboard_list = list("a w s e d f t g y h u j k o l p ; ' ] enter".split())
+keyboard_list = list("a w s e d f t g y h u j k o l p ; ' ] \\".split())
 black_keys = [1, 3, 6, 8, 10]
 
 arrow_list = ["^","/\\"]

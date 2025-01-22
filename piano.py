@@ -2,8 +2,6 @@ import keyboard
 from playsound import playsound # version 1.2.2
 from os.path import dirname
 import concurrent.futures
-import soundfile as sf
-import sounddevice as sd
 
 ERASE_CODE = "\033[2J"
 RETURN_CODE = "\033[H"

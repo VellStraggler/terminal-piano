@@ -6,7 +6,8 @@ from os.path import dirname
 import os
 import concurrent.futures
 import sys
-import termios
+if os.name != 'nt': # Not a windows feature
+    import termios
 # to get rid of input the builds up after the program ends
 
 ERASE_CODE = "\033[2J"
@@ -53,7 +54,7 @@ def draw_played_notes(keys_held: set, pool):
             msg += draw_list[1] # "/\\"
             if m in [4,11]:
                 msg += " "
-    print(msg + ERASE_DOWN_CODE + TO_START_POINT)
+    print(TO_START_POINT + msg + ERASE_DOWN_CODE)
 
 def main():
 
@@ -78,8 +79,10 @@ def main():
     register(cleanup)
 
 def cleanup():
-    termios.tcflush(sys.stdin, termios.TCIFLUSH)
-    os.kill(os.getpid(), signal.SIGINT)
+    if os.name == 'nt':
+        os.kill(os.getpid(), signal.SIGINT)
+    else:
+        termios.tcflush(sys.stdin, termios.TCIFLUSH)
 
 if __name__ == "__main__":
     main()

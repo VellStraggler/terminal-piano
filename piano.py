@@ -6,6 +6,7 @@ from os.path import dirname
 import os
 import concurrent.futures
 import sys
+import termios
 # to get rid of input the builds up after the program ends
 
 ERASE_CODE = "\033[2J"
@@ -77,6 +78,7 @@ def main():
     register(cleanup)
 
 def cleanup():
+    termios.tcflush(sys.stdin, termios.TCIFLUSH)
     os.kill(os.getpid(), signal.SIGINT)
 
 if __name__ == "__main__":
